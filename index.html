@@ -1,644 +1,632 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mourtalla Ndjitte — Data Analyst BI · Paris</title>
+<meta name="description" content="Data Analyst BI freelance à Paris. Power BI, SQL, Python, automatisation. Du pilotage financier à la décision. Certifié Microsoft PL-300.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #F7F5F0;
-  --bg2: #EEEAE2;
-  --card: #FFFFFF;
-  --blue: #0A5275;
-  --blue-light: #E8F0F5;
-  --blue-mid: #B8D0DE;
-  --green: #1D6A3A;
-  --green-light: #E8F3EC;
-  --text: #1A1A1A;
-  --muted: #6B6760;
-  --border: #D8D4CC;
-  --accent: #0A5275;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 15px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
-/* NAV */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(247,245,240,0.92); backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 2.5rem; height: 58px;
-}
-.nav-name { font-size: 15px; font-weight: normal; letter-spacing: 0.3px; color: var(--text); font-family: Georgia, serif; }
-.nav-name span { color: var(--blue); }
-.nav-links { display: flex; gap: 2rem; list-style: none; }
-.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; font-family: system-ui, sans-serif; letter-spacing: 0.3px; transition: color 0.2s; }
-.nav-links a:hover { color: var(--text); }
-.nav-cta {
-  font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase;
-  padding: 7px 20px; border: 1px solid var(--blue); color: var(--blue);
-  text-decoration: none; font-family: system-ui, sans-serif;
-  transition: all 0.2s;
-}
-.nav-cta:hover { background: var(--blue); color: white; }
+  :root{
+    --ink:#0C1A2B; --ink-2:#122741; --ink-3:#0E2137;
+    --navy:#16324F; --navy-deep:#0E2338;
+    --paper:#F5F7FA; --paper-2:#FFFFFF;
+    --line:#E2E7EE; --line-dark:rgba(255,255,255,.10);
+    --text:#15212F; --muted:#5C6B7C; --muted-dark:#9EB0C4;
+    --amber:#ECB34A; --amber-deep:#B7822A;
+    --pos:#3AB98A;
+    --maxw:1120px;
+    --r:14px;
+    --sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --disp:'Space Grotesk',var(--sans);
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+  body{
+    margin:0; font-family:var(--sans); color:var(--text);
+    background:var(--paper); line-height:1.65; font-size:16px;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none}
+  img{max-width:100%}
+  h1,h2,h3{font-family:var(--disp); font-weight:600; line-height:1.05; letter-spacing:-.02em; margin:0}
+  p{margin:0}
+  ::selection{background:var(--amber); color:var(--ink)}
+  :focus-visible{outline:2px solid var(--amber); outline-offset:3px; border-radius:4px}
 
-/* HERO */
-.hero {
-  min-height: 100vh; display: flex; align-items: center;
-  padding: 0 2.5rem; max-width: 1000px; margin: 0 auto;
-}
-.hero-inner { width: 100%; }
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--blue); font-family: system-ui, sans-serif;
-  margin-bottom: 2rem;
-}
-.hero-dot { width: 7px; height: 7px; border-radius: 50%; background: #4CAF50; animation: blink 2s ease-in-out infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-.hero h1 {
-  font-size: clamp(42px, 6.5vw, 80px);
-  font-weight: normal; line-height: 1.08;
-  letter-spacing: -1.5px; margin-bottom: 1.5rem;
-  color: var(--text);
-}
-.hero h1 em { font-style: italic; color: var(--blue); }
-.hero-sub {
-  font-size: 17px; color: var(--muted); max-width: 560px;
-  line-height: 1.7; margin-bottom: 2.5rem;
-  font-family: system-ui, sans-serif; font-style: normal;
-}
-.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 4rem; }
-.btn-fill {
-  padding: 12px 28px; background: var(--blue); color: white;
-  font-size: 13px; letter-spacing: 0.5px; border: none;
-  font-family: system-ui, sans-serif; cursor: pointer;
-  text-decoration: none; transition: opacity 0.2s; display: inline-block;
-}
-.btn-fill:hover { opacity: 0.85; }
-.btn-line {
-  padding: 12px 28px; background: transparent; color: var(--text);
-  font-size: 13px; letter-spacing: 0.5px; border: 1px solid var(--border);
-  font-family: system-ui, sans-serif; cursor: pointer;
-  text-decoration: none; transition: all 0.2s; display: inline-block;
-}
-.btn-line:hover { border-color: var(--blue); color: var(--blue); }
+  /* ---- layout helpers ---- */
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 26px}
+  .section{padding:104px 0; position:relative; scroll-margin-top:74px}
+  .eyebrow{
+    font-family:var(--mono); font-size:.72rem; font-weight:500;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--amber-deep);
+    display:inline-flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:20px; height:1px; background:var(--amber-deep); opacity:.55}
+  .sec-head{max-width:640px; margin-bottom:52px}
+  .sec-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem); margin:16px 0 12px}
+  .sec-head p{color:var(--muted); font-size:1.02rem}
 
-.hero-stats {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--border); padding-top: 2rem; gap: 1rem;
-}
-.stat-val { font-size: 26px; color: var(--blue); margin-bottom: 4px; }
-.stat-lbl { font-size: 12px; color: var(--muted); font-family: system-ui, sans-serif; letter-spacing: 0.3px; line-height: 1.4; }
+  /* ---- nav ---- */
+  header.nav{
+    position:fixed; inset:0 0 auto 0; z-index:50;
+    background:rgba(12,26,43,0); backdrop-filter:blur(0);
+    transition:background .3s ease, backdrop-filter .3s ease, border-color .3s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.nav.scrolled{
+    background:rgba(11,22,37,.86); backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid var(--line-dark);
+  }
+  .nav-in{max-width:var(--maxw); margin:0 auto; padding:14px 26px; display:flex; align-items:center; gap:20px}
+  .brand{display:flex; align-items:center; gap:12px; color:#fff; font-family:var(--disp); font-weight:600}
+  .mono-mark{
+    width:34px; height:34px; border:1px solid rgba(255,255,255,.28); border-radius:9px;
+    display:grid; place-items:center; font-family:var(--mono); font-weight:600; font-size:.86rem;
+    color:var(--amber); letter-spacing:.02em;
+  }
+  .brand b{font-weight:600; font-size:.98rem}
+  .brand span{display:block; font-family:var(--mono); font-size:.62rem; letter-spacing:.14em;
+    color:var(--muted-dark); text-transform:uppercase; margin-top:1px}
+  .nav-links{display:flex; align-items:center; gap:6px; margin-left:auto}
+  .nav-links a:not(.btn){
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.03em; color:#cdd8e6;
+    padding:8px 12px; border-radius:8px; transition:color .2s, background .2s;
+  }
+  .nav-links a:not(.btn):hover{color:#fff; background:rgba(255,255,255,.06)}
+  .pill{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--mono);
+    font-size:.72rem; letter-spacing:.04em; color:#dfe7f0; padding:7px 12px;
+    border:1px solid var(--line-dark); border-radius:100px;
+  }
+  .pill .dot{width:7px; height:7px; border-radius:50%; background:var(--amber); box-shadow:0 0 0 0 rgba(236,179,74,.6); animation:pulse 2.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(236,179,74,.5)}70%{box-shadow:0 0 0 7px rgba(236,179,74,0)}100%{box-shadow:0 0 0 0 rgba(236,179,74,0)}}
+  .btn{
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.03em; font-weight:500;
+    display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:9px;
+    cursor:pointer; border:1px solid transparent; transition:transform .15s ease, background .2s, color .2s, border-color .2s;
+    white-space:nowrap;
+  }
+  .btn-amber{background:var(--amber); color:var(--ink)}
+  .btn-amber:hover{transform:translateY(-2px); background:#f4c467}
+  .btn-ghost{border-color:rgba(255,255,255,.24); color:#eaf0f7}
+  .btn-ghost:hover{border-color:var(--amber); color:#fff; transform:translateY(-2px)}
+  .btn-navy{background:var(--navy); color:#fff}
+  .btn-navy:hover{transform:translateY(-2px); background:#1d4265}
+  .nav-toggle{display:none; margin-left:auto; background:none; border:1px solid var(--line-dark);
+    color:#fff; width:42px; height:40px; border-radius:9px; cursor:pointer; align-items:center; justify-content:center}
+  .nav-toggle svg{width:20px; height:20px}
 
-/* SECTIONS */
-.section { padding: 5rem 2.5rem; max-width: 1000px; margin: 0 auto; }
-.section-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
-.eyebrow {
-  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--muted); font-family: system-ui, sans-serif;
-  margin-bottom: 0.6rem;
-}
-.section-h { font-size: 28px; font-weight: normal; letter-spacing: -0.5px; margin-bottom: 0.6rem; }
-.section-sub { font-size: 15px; color: var(--muted); max-width: 500px; font-family: system-ui, sans-serif; margin-bottom: 2.5rem; }
+  /* ---- hero ---- */
+  .hero{
+    background:
+      radial-gradient(120% 90% at 85% -10%, rgba(236,179,74,.10), transparent 55%),
+      linear-gradient(180deg, var(--ink) 0%, var(--navy-deep) 100%);
+    color:#fff; position:relative; overflow:hidden;
+    padding:150px 0 96px;
+  }
+  .hero::before{
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.9), transparent 78%);
+    mask-image:linear-gradient(180deg, rgba(0,0,0,.9), transparent 78%);
+  }
+  .hero-grid{position:relative; display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center}
+  .hero-eyebrow{color:var(--amber); margin-bottom:22px}
+  .hero-eyebrow::before{background:var(--amber); opacity:.7}
+  .hero h1{font-size:clamp(2.5rem,6.2vw,4.5rem); font-weight:600}
+  .hero h1 .accent{color:var(--amber); display:block}
+  .hero-sub{color:#c7d3e1; font-size:clamp(1.02rem,1.6vw,1.16rem); max-width:34ch; margin:26px 0 34px}
+  .hero-sub b{color:#fff; font-weight:500}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap}
+  .cred{
+    margin-top:38px; display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--line-dark);
+    padding-top:22px; font-family:var(--mono);
+  }
+  .cred div{padding-right:26px; margin-right:26px; border-right:1px solid var(--line-dark)}
+  .cred div:last-child{border-right:0; margin-right:0; padding-right:0}
+  .cred .k{font-size:1.28rem; color:#fff; font-weight:600; letter-spacing:-.01em}
+  .cred .l{font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted-dark); margin-top:3px}
 
-/* SKILLS */
-.skills-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); }
-.skill-row {
-  display: grid; grid-template-columns: 200px 1fr;
-  border-bottom: 1px solid var(--border); background: var(--card);
-  transition: background 0.15s;
-}
-.skill-row:last-child { border-bottom: none; }
-.skill-row:hover { background: var(--blue-light); }
-.skill-label {
-  padding: 1rem 1.25rem; font-size: 13px; font-weight: bold;
-  color: var(--blue); border-right: 1px solid var(--border);
-  font-family: system-ui, sans-serif; letter-spacing: 0.2px;
-  display: flex; align-items: center;
-}
-.skill-content {
-  padding: 1rem 1.25rem; font-size: 13px; color: var(--muted);
-  font-family: system-ui, sans-serif; display: flex; align-items: center;
-}
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag {
-  font-size: 11px; padding: 3px 9px; border: 1px solid var(--border);
-  color: var(--muted); font-family: system-ui, sans-serif;
-  background: var(--bg);
-}
+  /* impact widget */
+  .widget{
+    background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+    border:1px solid var(--line-dark); border-radius:16px; padding:22px 22px 24px;
+    backdrop-filter:blur(6px); box-shadow:0 30px 60px -30px rgba(0,0,0,.7);
+  }
+  .widget-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px}
+  .widget-top .t{font-family:var(--mono); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-dark)}
+  .widget-top .dots{display:flex; gap:5px}
+  .widget-top .dots i{width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.18)}
+  .widget-top .dots i:first-child{background:var(--amber)}
+  .metric{margin:16px 0}
+  .metric .row{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px}
+  .metric .name{font-family:var(--sans); font-size:.86rem; color:#d3dded}
+  .metric .val{font-family:var(--mono); font-size:.92rem; font-weight:600; color:var(--amber); letter-spacing:.01em}
+  .metric .val::before{content:"▾ "; font-size:.75em}
+  .bar{height:7px; border-radius:100px; background:rgba(255,255,255,.08); overflow:hidden}
+  .bar i{display:block; height:100%; border-radius:100px;
+    background:linear-gradient(90deg, var(--amber), #f6cd7d); width:0; transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+  .widget-foot{margin-top:22px; padding-top:16px; border-top:1px solid var(--line-dark);
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.05em; color:var(--muted-dark); display:flex; justify-content:space-between}
+  .widget-foot span:last-child{color:#cdd8e6}
 
-/* EXPERIENCE */
-.exp-timeline { display: flex; flex-direction: column; gap: 0; }
-.exp-item {
-  display: grid; grid-template-columns: 160px 1fr;
-  gap: 0; padding: 2rem 0; border-bottom: 1px solid var(--border);
-}
-.exp-item:last-child { border-bottom: none; }
-.exp-left { padding-right: 2rem; border-right: 2px solid var(--blue-mid); }
-.exp-period { font-size: 12px; color: var(--muted); font-family: system-ui, sans-serif; margin-bottom: 4px; }
-.exp-co { font-size: 13px; font-weight: bold; color: var(--blue); font-family: system-ui, sans-serif; margin-bottom: 2px; }
-.exp-place { font-size: 12px; color: var(--muted); font-family: system-ui, sans-serif; }
-.exp-right { padding-left: 2rem; }
-.role-block { margin-bottom: 1.25rem; }
-.role-block:last-child { margin-bottom: 0; }
-.role-title { font-size: 15px; font-weight: bold; color: var(--text); margin-bottom: 0.6rem; font-family: system-ui, sans-serif; }
-.role-tag {
-  display: inline-block; font-size: 10px; letter-spacing: 1px;
-  text-transform: uppercase; padding: 2px 8px;
-  border: 1px solid var(--blue-mid); color: var(--blue);
-  font-family: system-ui, sans-serif; margin-left: 8px; vertical-align: middle;
-}
-.bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-.bullets li {
-  font-size: 13px; color: var(--muted); padding-left: 1.1rem;
-  position: relative; font-family: system-ui, sans-serif; line-height: 1.6;
-}
-.bullets li::before { content: '—'; position: absolute; left: 0; color: var(--blue-mid); }
-.bullets li strong { color: var(--text); }
-.bullets li .metric { color: var(--green); font-weight: bold; }
+  /* ---- skills ---- */
+  .skills-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+  .skill{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:var(--r);
+    padding:22px 20px; transition:transform .18s ease, box-shadow .2s ease, border-color .2s;
+  }
+  .skill:hover{transform:translateY(-3px); box-shadow:0 18px 34px -22px rgba(20,40,70,.4); border-color:#cdd7e4}
+  .skill .lab{font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--navy); font-weight:600; display:flex; align-items:center; gap:8px; margin-bottom:14px}
+  .skill .lab::before{content:""; width:6px; height:6px; background:var(--amber); border-radius:2px; transform:rotate(45deg)}
+  .tags{display:flex; flex-wrap:wrap; gap:7px}
+  .tags span{font-size:.8rem; color:#41505f; background:#eef2f7; border:1px solid #e4e9f0;
+    padding:4px 9px; border-radius:7px; font-family:var(--mono); font-size:.73rem}
+  .skill.feat{border-color:rgba(236,179,74,.5); background:linear-gradient(180deg,#fffaf0,#fff)}
+  .skill.feat .lab{color:var(--amber-deep)}
+  .skill.feat .lab::before{background:var(--amber-deep)}
+  .skill.feat .badge{font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; color:var(--amber-deep);
+    border:1px solid rgba(183,130,42,.4); border-radius:100px; padding:2px 7px; margin-left:auto}
 
-/* PROJETS */
-.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-.proj-card {
-  background: var(--card); padding: 1.5rem;
-  transition: background 0.15s;
-}
-.proj-card:hover { background: var(--blue-light); }
-.proj-cat {
-  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--blue); font-family: system-ui, sans-serif; margin-bottom: 0.6rem;
-}
-.proj-card h3 { font-size: 14px; font-weight: bold; margin-bottom: 0.4rem; font-family: system-ui, sans-serif; color: var(--text); }
-.proj-card p { font-size: 13px; color: var(--muted); line-height: 1.5; font-family: system-ui, sans-serif; }
+  /* ---- experience ---- */
+  .xp{display:grid; grid-template-columns:auto 1fr; gap:0}
+  .xp-item{display:contents}
+  .xp-when{
+    font-family:var(--mono); font-size:.8rem; color:var(--muted); padding:0 34px 0 0; white-space:nowrap;
+    position:relative; text-align:right; padding-top:2px;
+  }
+  .xp-rail{position:relative; padding:0 0 54px 34px; border-left:1px solid var(--line)}
+  .xp-item:last-child .xp-rail{padding-bottom:0}
+  .xp-rail::before{content:""; position:absolute; left:-6px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--paper); border:2px solid var(--amber)}
+  .xp-org{font-family:var(--disp); font-size:1.2rem; font-weight:600; color:var(--text)}
+  .xp-meta{font-family:var(--mono); font-size:.74rem; color:var(--muted); margin:6px 0 4px; letter-spacing:.02em}
+  .xp-role{font-size:.9rem; color:var(--navy); font-weight:600; margin-bottom:14px}
+  .xp-rail ul{list-style:none; margin:0; padding:0; display:grid; gap:9px}
+  .xp-rail li{position:relative; padding-left:20px; font-size:.94rem; color:#3c4a59}
+  .xp-rail li::before{content:""; position:absolute; left:2px; top:.62em; width:6px; height:1px; background:var(--amber-deep)}
+  .xp-rail li b{color:var(--text); font-weight:600}
+  .xp-rail .delta{font-family:var(--mono); color:var(--amber-deep); font-weight:600; font-size:.88em; white-space:nowrap}
 
-/* TARIFS */
-.pricing-wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-.price-card { background: var(--card); padding: 2rem 1.5rem; }
-.price-card.best { background: var(--blue-light); border: 2px solid var(--blue); margin: -1px; }
-.price-plan { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-family: system-ui, sans-serif; margin-bottom: 1rem; }
-.price-card.best .price-plan { color: var(--blue); }
-.price-num { font-size: 40px; color: var(--text); letter-spacing: -1px; margin-bottom: 2px; }
-.price-per { font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; font-family: system-ui, sans-serif; }
-.price-feats { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 2rem; }
-.price-feats li { font-size: 13px; color: var(--muted); padding-left: 1.1rem; position: relative; font-family: system-ui, sans-serif; }
-.price-feats li::before { content: '✓'; position: absolute; left: 0; color: var(--blue); font-size: 11px; }
-.price-card.best .price-feats li { color: var(--text); }
+  /* ---- projects ---- */
+  .proj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .proj{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:var(--r); padding:22px 20px;
+    display:flex; flex-direction:column; gap:10px; transition:transform .18s ease, box-shadow .2s, border-color .2s;
+    position:relative; overflow:hidden;
+  }
+  .proj::after{content:""; position:absolute; left:0; top:0; height:3px; width:100%;
+    background:linear-gradient(90deg,var(--amber),transparent); transform:scaleX(0); transform-origin:left; transition:transform .3s ease}
+  .proj:hover{transform:translateY(-4px); box-shadow:0 22px 40px -26px rgba(20,40,70,.45); border-color:#ccd6e3}
+  .proj:hover::after{transform:scaleX(1)}
+  .proj .cat{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber-deep)}
+  .proj h3{font-size:1.04rem; line-height:1.2; letter-spacing:-.01em}
+  .proj p{font-size:.88rem; color:var(--muted); line-height:1.55}
 
-/* CERTIF */
-.certif-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-.certif-row {
-  background: var(--card); padding: 0.85rem 1.25rem;
-  display: flex; align-items: center; gap: 10px;
-}
-.certif-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.certif-row p { font-size: 13px; color: var(--muted); font-family: system-ui, sans-serif; }
-.certif-row p strong { color: var(--text); }
+  /* ---- formation ---- */
+  .edu-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:38px; align-items:start}
+  .edu-list{display:grid; gap:0}
+  .edu{display:flex; gap:18px; padding:18px 0; border-bottom:1px solid var(--line); align-items:baseline}
+  .edu:first-child{padding-top:0}
+  .edu .yr{font-family:var(--mono); font-size:.8rem; color:var(--amber-deep); font-weight:600; min-width:44px}
+  .edu .body b{display:block; font-family:var(--disp); font-size:1.02rem; font-weight:600; letter-spacing:-.01em}
+  .edu .body span{font-size:.85rem; color:var(--muted)}
+  .edu .tagcert{font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; text-transform:uppercase;
+    margin-left:auto; color:var(--navy); border:1px solid var(--line); border-radius:100px; padding:2px 8px; align-self:center}
+  .courses{background:var(--navy-deep); color:#fff; border-radius:var(--r); padding:26px 24px}
+  .courses .t{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--amber); margin-bottom:16px}
+  .courses ul{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+  .courses li{font-size:.9rem; color:#d3dded; padding-left:20px; position:relative}
+  .courses li::before{content:"›"; position:absolute; left:0; color:var(--amber); font-family:var(--mono)}
 
-/* CONTACT */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-.contact-line {
-  display: flex; align-items: center; gap: 12px;
-  font-size: 14px; color: var(--muted); font-family: system-ui, sans-serif;
-  text-decoration: none; margin-bottom: 1rem; transition: color 0.2s;
-}
-.contact-line:hover { color: var(--blue); }
-.cicon {
-  width: 34px; height: 34px; border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0; color: var(--blue);
-}
-.form-lbl { display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-family: system-ui, sans-serif; margin-bottom: 6px; }
-.form-input {
-  width: 100%; padding: 10px 14px; background: var(--card);
-  border: 1px solid var(--border); font-size: 14px; color: var(--text);
-  font-family: system-ui, sans-serif; outline: none; margin-bottom: 1rem;
-  transition: border-color 0.2s;
-}
-.form-input:focus { border-color: var(--blue); }
-textarea.form-input { resize: vertical; min-height: 90px; }
+  /* ---- pricing ---- */
+  .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:stretch}
+  .price{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:16px; padding:28px 24px;
+    display:flex; flex-direction:column; transition:transform .18s ease, box-shadow .2s;
+  }
+  .price:hover{transform:translateY(-3px); box-shadow:0 20px 40px -26px rgba(20,40,70,.4)}
+  .price.best{background:var(--ink); color:#fff; border-color:var(--ink); transform:scale(1.02)}
+  .price.best:hover{transform:scale(1.02) translateY(-3px)}
+  .price .tier{font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .price.best .tier{color:var(--amber)}
+  .price .amt{font-family:var(--disp); font-size:2.6rem; font-weight:600; letter-spacing:-.02em; margin:14px 0 2px; line-height:1}
+  .price .per{font-family:var(--mono); font-size:.74rem; color:var(--muted); margin-bottom:20px}
+  .price.best .per{color:var(--muted-dark)}
+  .price ul{list-style:none; margin:0 0 24px; padding:0; display:grid; gap:11px; flex:1}
+  .price li{font-size:.88rem; color:#3c4a59; padding-left:22px; position:relative}
+  .price.best li{color:#cdd8e6}
+  .price li::before{content:"✓"; position:absolute; left:0; color:var(--amber-deep); font-size:.82rem; font-weight:700}
+  .price.best li::before{color:var(--amber)}
+  .price .btn{width:100%; justify-content:center}
+  .price-note{font-family:var(--mono); font-size:.76rem; color:var(--muted); margin-top:26px; text-align:center}
 
-/* FOOTER */
-footer {
-  border-top: 1px solid var(--border); padding: 1.5rem 2.5rem;
-  display: flex; justify-content: space-between; align-items: center;
-  max-width: 1000px; margin: 0 auto;
-}
-footer p { font-size: 12px; color: var(--muted); font-family: system-ui, sans-serif; }
+  /* ---- contact ---- */
+  .contact{background:linear-gradient(180deg,var(--navy-deep),var(--ink)); color:#fff}
+  .contact::before{content:""; position:absolute; inset:0; opacity:.4; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:46px 46px; -webkit-mask-image:radial-gradient(70% 60% at 30% 20%,#000,transparent); mask-image:radial-gradient(70% 60% at 30% 20%,#000,transparent)}
+  .contact-grid{position:relative; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start}
+  .contact h2{font-size:clamp(1.9rem,4vw,2.7rem); color:#fff}
+  .contact .lead{color:#c7d3e1; margin:16px 0 30px; max-width:38ch}
+  .clinks{display:grid; gap:12px; margin-bottom:26px}
+  .clink{display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid var(--line-dark); border-radius:11px;
+    font-family:var(--mono); font-size:.86rem; color:#dfe7f0; transition:border-color .2s, background .2s, transform .15s}
+  .clink:hover{border-color:var(--amber); background:rgba(236,179,74,.06); transform:translateX(4px)}
+  .clink .ic{width:34px; height:34px; border-radius:8px; background:rgba(255,255,255,.06); display:grid; place-items:center; color:var(--amber); flex:none}
+  .clink .ic svg{width:17px; height:17px}
+  .cloc{font-family:var(--mono); font-size:.78rem; color:var(--muted-dark)}
+  form{display:grid; gap:14px; background:rgba(255,255,255,.04); border:1px solid var(--line-dark); border-radius:16px; padding:26px 24px}
+  form label{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted-dark); margin-bottom:-8px}
+  input,textarea{font-family:var(--sans); font-size:.94rem; color:#fff; background:rgba(255,255,255,.05);
+    border:1px solid var(--line-dark); border-radius:9px; padding:12px 14px; transition:border-color .2s, background .2s}
+  input::placeholder,textarea::placeholder{color:#8397ab}
+  input:focus,textarea:focus{border-color:var(--amber); background:rgba(255,255,255,.08); outline:none}
+  textarea{resize:vertical; min-height:110px}
+  form .btn{justify-content:center; margin-top:4px}
 
-@media (max-width: 700px) {
-  .hero-stats { grid-template-columns: 1fr 1fr; }
-  .skills-list .skill-row { grid-template-columns: 1fr; }
-  .skill-label { border-right: none; border-bottom: 1px solid var(--border); }
-  .exp-item { grid-template-columns: 1fr; }
-  .exp-left { border-right: none; border-bottom: 2px solid var(--blue-mid); padding-bottom: 1rem; margin-bottom: 1rem; }
-  .exp-right { padding-left: 0; }
-  .projects-grid, .pricing-wrap, .certif-grid, .contact-grid { grid-template-columns: 1fr; }
-  nav .nav-links { display: none; }
-}
+  /* ---- footer ---- */
+  footer{background:var(--ink); color:var(--muted-dark); padding:34px 0; border-top:1px solid var(--line-dark)}
+  .foot-in{max-width:var(--maxw); margin:0 auto; padding:0 26px; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    font-family:var(--mono); font-size:.74rem; letter-spacing:.02em}
+  .foot-in a:hover{color:var(--amber)}
+
+  /* ---- reveal ---- */
+  .has-js .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
+  .has-js .reveal.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .has-js .reveal{opacity:1; transform:none; transition:none}
+    html{scroll-behavior:auto}
+    .pill .dot{animation:none}
+    .bar i{transition:none}
+  }
+
+  /* ---- responsive ---- */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr; gap:40px}
+    .widget{max-width:440px}
+    .contact-grid{grid-template-columns:1fr; gap:40px}
+    .edu-grid{grid-template-columns:1fr; gap:28px}
+    .skills-grid{grid-template-columns:repeat(2,1fr)}
+    .proj-grid{grid-template-columns:repeat(2,1fr)}
+    .price-grid{grid-template-columns:1fr; gap:14px}
+    .price.best{transform:none}
+    .price.best:hover{transform:translateY(-3px)}
+  }
+  @media(max-width:720px){
+    .nav-links,.nav .pill{display:none}
+    .nav-toggle{display:inline-flex}
+    header.nav.open .nav-links{
+      display:flex; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:2px; align-items:stretch;
+      background:rgba(11,22,37,.97); backdrop-filter:blur(14px); padding:14px; border-bottom:1px solid var(--line-dark);
+    }
+    header.nav.open .nav-links a:not(.btn){padding:12px 14px; font-size:.9rem}
+    .section{padding:78px 0}
+    .hero{padding:128px 0 76px}
+    .cred{gap:14px}
+    .cred div{padding-right:0; margin-right:0; border-right:0; min-width:44%}
+    .xp{grid-template-columns:1fr}
+    .xp-when{text-align:left; padding:0 0 8px 34px}
+    .xp-when::after{content:""}
+  }
+  @media(max-width:480px){
+    .skills-grid,.proj-grid{grid-template-columns:1fr}
+    .brand span{display:none}
+    .foot-in{flex-direction:column; gap:8px}
+  }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-name">Mourtalla <span>Ndjitte</span></div>
-  <ul class="nav-links">
-    <li><a href="#competences">Compétences</a></li>
-    <li><a href="#experience">Expérience</a></li>
-    <li><a href="#projets">Projets</a></li>
-    <li><a href="#tarifs">Tarifs</a></li>
-  </ul>
-  <a href="#contact" class="nav-cta">Contact</a>
-</nav>
-
-<!-- HERO -->
-<div style="max-width:1000px; margin:0 auto; padding:0 2.5rem;">
-  <div class="hero">
-    <div class="hero-inner">
-      <div class="hero-tag">
-        <span class="hero-dot"></span>
-        Disponible pour missions freelance · Paris
-      </div>
-      <h1>Données brutes.<br><em>Décisions claires.</em></h1>
-      <p class="hero-sub">
-        Data Analyst BI spécialisé Power BI, SQL et Python. 3 ans chez AXA France et Stellantis — pilotage financier, automatisation, reporting décisionnel.
-      </p>
-      <div class="hero-btns">
-        <a href="#projets" class="btn-fill">Voir mes réalisations</a>
-        <a href="#contact" class="btn-line">Prendre contact</a>
-      </div>
-      <div class="hero-stats">
-        <div>
-          <div class="stat-val">3 ans</div>
-          <div class="stat-lbl">AXA France<br>& Stellantis</div>
-        </div>
-        <div>
-          <div class="stat-val">PL-300</div>
-          <div class="stat-lbl">Certifié Microsoft<br>Power BI</div>
-        </div>
-        <div>
-          <div class="stat-val">M2</div>
-          <div class="stat-lbl">Data Science IA<br>La Rochelle Univ.</div>
-        </div>
-        <div>
-          <div class="stat-val">500–600€</div>
-          <div class="stat-lbl">TJM HT<br>selon mission</div>
-        </div>
-      </div>
-    </div>
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="Accueil">
+      <span class="mono-mark">MN</span>
+      <span><b>Mourtalla Ndjitte</b><span>Data Analyst BI</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#competences">Compétences</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#projets">Projets</a>
+      <a href="#tarifs">Tarifs</a>
+      <span class="pill"><span class="dot"></span>Disponible</span>
+      <a href="#contact" class="btn btn-amber" style="margin-left:6px">Contact</a>
+    </nav>
   </div>
-</div>
+</header>
 
-<hr class="section-rule">
+<main id="top">
 
-<!-- COMPÉTENCES -->
-<section class="section" id="competences">
-  <p class="eyebrow">Compétences</p>
-  <h2 class="section-h">Stack technique</h2>
-  <p class="section-sub">Du pipeline à la visualisation — expertise centrée sur la valeur métier.</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow hero-eyebrow">Data Analyst BI — Freelance — Paris</span>
+        <h1>Données brutes.<span class="accent">Décisions claires.</span></h1>
+        <p class="hero-sub">Je transforme des données financières et industrielles en <b>outils de pilotage utilisés au quotidien</b> par les directions métiers. Power BI, SQL, Python — de la collecte à la décision.</p>
+        <div class="hero-cta">
+          <a href="#projets" class="btn btn-amber">Voir mes réalisations</a>
+          <a href="#contact" class="btn btn-ghost">Prendre contact</a>
+        </div>
+        <div class="cred">
+          <div><div class="k">3 ans</div><div class="l">AXA · Stellantis</div></div>
+          <div><div class="k">PL-300</div><div class="l">Microsoft Power BI</div></div>
+          <div><div class="k">M2</div><div class="l">Data Science · IA</div></div>
+          <div><div class="k">500–600€</div><div class="l">TJM HT</div></div>
+        </div>
+      </div>
 
-  <div class="skills-list">
-    <div class="skill-row">
-      <div class="skill-label">BI & Visualisation</div>
-      <div class="skill-content">
-        <div class="tags">
-          <span class="tag">Power BI Expert</span>
-          <span class="tag">DAX</span>
-          <span class="tag">Power Query</span>
-          <span class="tag">Power BI Service</span>
-          <span class="tag">RLS</span>
-          <span class="tag">Modélisation en étoile</span>
+      <div class="widget reveal" aria-label="Sélection d'impacts mesurés">
+        <div class="widget-top">
+          <div class="t">Impact — sélection</div>
+          <div class="dots"><i></i><i></i><i></i></div>
+        </div>
+        <div class="metric">
+          <div class="row"><span class="name">Erreurs de reporting</span><span class="val">70–80&nbsp;%</span></div>
+          <div class="bar"><i data-w="78"></i></div>
+        </div>
+        <div class="metric">
+          <div class="row"><span class="name">Temps de production</span><span class="val">20–30&nbsp;%</span></div>
+          <div class="bar"><i data-w="27"></i></div>
+        </div>
+        <div class="metric">
+          <div class="row"><span class="name">Écarts de réconciliation</span><span class="val">30&nbsp;%</span></div>
+          <div class="bar"><i data-w="32"></i></div>
+        </div>
+        <div class="metric">
+          <div class="row"><span class="name">Productivité (Power Apps)</span><span class="val" style="color:var(--pos)">70–80&nbsp;%↑</span></div>
+          <div class="bar"><i data-w="76" style="background:linear-gradient(90deg,var(--pos),#7fd9b6)"></i></div>
+        </div>
+        <div class="widget-foot"><span>Source</span><span>Missions AXA · Stellantis</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section class="section" id="competences">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Stack technique</span>
+        <h2>Du pipeline à la décision</h2>
+        <p>Une expertise centrée sur la valeur métier : structurer la donnée, fiabiliser les flux, restituer ce qui compte.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill reveal"><div class="lab">BI &amp; Visualisation</div><div class="tags"><span>Power BI</span><span>DAX</span><span>Power Query</span><span>Power BI Service</span><span>RLS</span><span>Modélisation en étoile</span></div></div>
+        <div class="skill reveal"><div class="lab">Langages &amp; BDD</div><div class="tags"><span>SQL Server</span><span>MySQL</span><span>Oracle</span><span>Access</span><span>Python</span><span>pandas</span><span>NumPy</span><span>scikit-learn</span><span>VBA</span></div></div>
+        <div class="skill reveal"><div class="lab">Automatisation</div><div class="tags"><span>Power Automate</span><span>Power Apps</span><span>SharePoint</span><span>WPS SAS</span><span>ETL multi-sources</span></div></div>
+        <div class="skill reveal"><div class="lab">Finance &amp; Pilotage</div><div class="tags"><span>Écarts budget/réalisé</span><span>YTD</span><span>N vs N-1</span><span>Contrôle de gestion</span><span>KPI industriels</span></div></div>
+        <div class="skill feat reveal"><div class="lab">Sécurité &amp; Gouvernance<span class="badge">Différenciateur</span></div><div class="tags"><span>Cryptographie</span><span>Sécurité de l'information</span><span>Sécurisation des accès (RLS)</span><span>Contrôle qualité</span><span>Gouvernance data</span></div></div>
+        <div class="skill reveal"><div class="lab">Data Science &amp; IA</div><div class="tags"><span>Machine Learning</span><span>NLP</span><span>CNN / RNN</span><span>Fine-tuning LLM</span><span>ElasticSearch</span></div></div>
+        <div class="skill reveal"><div class="lab">Méthodes &amp; Outils</div><div class="tags"><span>Git</span><span>JIRA</span><span>Agile / Scrum</span><span>Documentation technique</span></div></div>
+        <div class="skill reveal"><div class="lab">Savoir-être</div><div class="tags"><span>Sens de l'organisation</span><span>Esprit d'équipe</span><span>Autonomie</span><span>Rigueur</span><span>Pédagogie</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section class="section" id="parcours" style="background:linear-gradient(180deg,#eef2f7,var(--paper))">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Parcours</span>
+        <h2>Là où mes tableaux de bord tournent</h2>
+        <p>Trois ans à livrer des outils décisionnels adoptés par les équipes — dans l'assurance et l'industrie.</p>
+      </div>
+      <div class="xp">
+        <div class="xp-item reveal">
+          <div class="xp-when">02/2025 — 06/2026</div>
+          <div class="xp-rail">
+            <div class="xp-org">AXA France — Direction Financière IT</div>
+            <div class="xp-meta">Nanterre · Contrôle de Gestion, Optimisation &amp; Achats</div>
+            <div class="xp-role">Data Analyst</div>
+            <ul>
+              <li>Conçu et déployé <b>2 solutions BI stratégiques</b> (frais généraux &amp; ressources financières IT), adoptées au quotidien par <b>20 à 30 contrôleurs de gestion</b></li>
+              <li>Structuré des <b>KPI financiers avancés</b> : écarts budget/réalisé, YTD, analyses par direction et centre de coût</li>
+              <li>Piloté un suivi des frais de déplacements (N vs N-1) pour renforcer la maîtrise budgétaire</li>
+              <li>Industrialisé des <b>pipelines automatisés</b> (Power Query, Python, WPS SAS) avec contrôles qualité — <span class="delta">erreurs ↓ 70–80 %</span>, temps de production <span class="delta">↓ 20–30 %</span></li>
+              <li>Créé <b>3 Power Apps</b> et flux Power Automate connectés à SharePoint — <span class="delta">productivité ↑ 70–80 %</span></li>
+              <li>Administré <b>Power BI Service</b> : datasets, rafraîchissements planifiés, RLS, workspaces, gouvernance</li>
+            </ul>
+          </div>
+        </div>
+        <div class="xp-item reveal">
+          <div class="xp-when">07/2021 — 07/2023</div>
+          <div class="xp-rail">
+            <div class="xp-org">Stellantis via Galimatech</div>
+            <div class="xp-meta">Dakar · Powertrain · Supply Chain · Performance Industrielle</div>
+            <div class="xp-role">Data Analyst</div>
+            <ul>
+              <li>Piloté le <b>reporting capacitaire multi-pays</b> consolidant les données de France, Allemagne, Maroc, Chine — <span class="delta">écarts ↓ 30 %</span></li>
+              <li>Conçu des <b>dashboards industriels</b> pour le suivi des KPI critiques (performance, qualité, stocks) — <b>50+ utilisateurs</b></li>
+              <li>Automatisé via <b>Python</b> le traitement de datasets volumineux multi-énergies — <span class="delta">temps ÷ 2</span></li>
+              <li>Optimisé Excel/VBA et SQL/Access — temps mensuel de production <span class="delta">↓ 40 %</span></li>
+              <li>Développé des <b>macros VBA et UserForms</b> pour automatiser les processus de calcul et de reporting</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class="skill-row">
-      <div class="skill-label">Langages & BDD</div>
-      <div class="skill-content">
-        <div class="tags">
-          <span class="tag">SQL (Server, MySQL, Oracle, Access)</span>
-          <span class="tag">Python</span>
-          <span class="tag">Pandas</span>
-          <span class="tag">NumPy</span>
-          <span class="tag">Scikit-learn</span>
-          <span class="tag">VBA</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-label">Automatisation</div>
-      <div class="skill-content">
-        <div class="tags">
-          <span class="tag">Power Automate</span>
-          <span class="tag">Power Apps</span>
-          <span class="tag">SharePoint</span>
-          <span class="tag">WPS SAS</span>
-          <span class="tag">ETL multi-sources</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-label">Finance & KPI</div>
-      <div class="skill-content">
-        <div class="tags">
-          <span class="tag">Écarts budget/réalisé</span>
-          <span class="tag">YTD</span>
-          <span class="tag">Analyse N vs N-1</span>
-          <span class="tag">Contrôle de gestion</span>
-          <span class="tag">KPI industriels</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-label">Data Science & IA</div>
-      <div class="skill-content">
-        <div class="tags">
-          <span class="tag">Machine Learning</span>
-          <span class="tag">NLP</span>
-          <span class="tag">CNN / RNN</span>
-          <span class="tag">Fine-tuning LLM</span>
-          <span class="tag">Azure Data Lake</span>
-          <span class="tag">ElasticSearch</span>
-        </div>
-      </div>
-    </div>
-    <div class="skill-row">
-      <div class="skill-label">Méthodes</div>
-      <div class="skill-content">
-        <div class="tags">
-          <span class="tag">Git</span>
-          <span class="tag">JIRA</span>
-          <span class="tag">Agile / Scrum</span>
-          <span class="tag">Documentation technique</span>
-          <span class="tag">Formation utilisateurs</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<hr class="section-rule">
-
-<!-- EXPÉRIENCE -->
-<section class="section" id="experience">
-  <p class="eyebrow">Expérience</p>
-  <h2 class="section-h">Parcours</h2>
-
-  <div class="exp-timeline">
-
-    <!-- AXA -->
-    <div class="exp-item">
-      <div class="exp-left">
-        <div class="exp-period">02/2025 — 06/2026</div>
-        <div class="exp-co">AXA France</div>
-        <div class="exp-place">Nanterre</div>
-        <div class="exp-place" style="margin-top:6px; font-style:italic;">Direction Financière IT</div>
+  <!-- PROJETS -->
+  <section class="section" id="projets">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Réalisations personnelles</span>
+        <h2>Projets data science</h2>
+        <p>Un terrain de jeu couvrant IA, NLP, computer vision et Big Data — au-delà du strict périmètre BI.</p>
       </div>
-      <div class="exp-right">
-        <div class="role-block">
-          <div class="role-title">Data Analyst — CDD <span class="role-tag">12/2025 → 06/2026</span></div>
-          <ul class="bullets">
-            <li>Conçu et déployé <strong>2 solutions BI stratégiques</strong> (frais généraux & ressources financières IT), adoptées par <strong class="metric">20 à 30 contrôleurs de gestion</strong></li>
-            <li>Structuré des <strong>KPI financiers avancés</strong> : écarts budget/réalisé, YTD, analyses par direction et centre de coût</li>
-            <li>Architecturé des <strong>pipelines automatisés</strong> (Power Query, Python, WPS SAS) — <span class="metric">réduction des erreurs de 70 à 80 %</span></li>
-            <li>Créé <strong>3 Power Apps et flux Power Automate</strong> connectés à SharePoint — <span class="metric">gain de productivité de 70 à 80 %</span></li>
-            <li>Administré <strong>Power BI Service</strong> : datasets, rafraîchissements planifiés, RLS, workspaces, gouvernance</li>
-          </ul>
-        </div>
-        <div class="role-block">
-          <div class="role-title">Data Analyst — Stage <span class="role-tag" style="border-color:#B8D0DE; color:#6B6760;">converti en CDD · 02/2025</span></div>
-          <ul class="bullets">
-            <li>Développé les <strong>premiers outils de pilotage financier</strong> sous Power BI depuis des sources hétérogènes</li>
-            <li>Pipeline Power Query + Python — <span class="metric">réduction de 20 à 30 %</span> du temps de production des reportings</li>
-          </ul>
-        </div>
+      <div class="proj-grid">
+        <div class="proj reveal"><span class="cat">Computer Vision</span><h3>Détection de manipulation d'images (ELA)</h3><p>Error Level Analysis pour identifier les zones retouchées — application à la forensique numérique.</p></div>
+        <div class="proj reveal"><span class="cat">LLM · Process Mining</span><h3>Fine-tuning de LLM pour l'analyse prédictive</h3><p>Adaptation de modèles de langage à des tâches de prédiction dans un contexte de Process Mining industriel.</p></div>
+        <div class="proj reveal"><span class="cat">Deep Learning</span><h3>Génération de légendes d'images (CNN + RNN)</h3><p>Extraction de features par réseau convolutif, génération de texte par réseau récurrent.</p></div>
+        <div class="proj reveal"><span class="cat">NLP</span><h3>Modélisation de sujets (Gensim · LDA)</h3><p>Extraction automatique de thèmes latents dans de larges corpus — visualisation et interprétation des topics.</p></div>
+        <div class="proj reveal"><span class="cat">Machine Learning</span><h3>Prédiction des prix immobiliers</h3><p>Comparaison Decision Tree, KNN et SVR — optimisation des hyperparamètres et validation croisée.</p></div>
+        <div class="proj reveal"><span class="cat">Big Data · Search</span><h3>Indexation &amp; recherche (Solr / ElasticSearch)</h3><p>Indexation de films et interrogation full-text via OpenSearch — optimisation des requêtes.</p></div>
+        <div class="proj reveal"><span class="cat">NLP</span><h3>Extraction d'information (NLTK)</h3><p>Pipeline complet : tokenisation, NER, extraction de relations depuis des textes non structurés.</p></div>
+        <div class="proj reveal"><span class="cat">Machine Learning</span><h3>Clustering d'images (scikit-learn)</h3><p>Segmentation non supervisée — réduction dimensionnelle, extraction de features et évaluation.</p></div>
       </div>
     </div>
+  </section>
 
-    <!-- Stellantis -->
-    <div class="exp-item">
-      <div class="exp-left">
-        <div class="exp-period">07/2021 — 07/2023</div>
-        <div class="exp-co">Stellantis</div>
-        <div class="exp-place">via Galimatech · Dakar</div>
-        <div class="exp-place" style="margin-top:6px; font-style:italic;">Powertrain · Supply Chain</div>
+  <!-- FORMATION -->
+  <section class="section" id="formation" style="background:linear-gradient(180deg,#eef2f7,var(--paper))">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Formation &amp; certifications</span>
+        <h2>Diplômes &amp; certifications</h2>
       </div>
-      <div class="exp-right">
-        <div class="role-block">
-          <div class="role-title">Data Analyst — CDD <span class="role-tag">01/2022 → 07/2023</span></div>
-          <ul class="bullets">
-            <li>Reporting capacitaire <strong>multi-pays</strong> consolidant les données de <strong>France, Allemagne, Maroc, Chine</strong> — <span class="metric">réduction des écarts de 30 %</span></li>
-            <li>Dashboards industriels pour le suivi des KPI critiques (performance, qualité, stocks) — <strong class="metric">50+ utilisateurs</strong></li>
-            <li>Automatisation Python du traitement de datasets volumineux multi-énergies — <span class="metric">temps divisé par 2</span></li>
-            <li>Optimisation Excel/VBA et SQL/Access — <span class="metric">réduction du temps mensuel de 40 %</span></li>
-          </ul>
+      <div class="edu-grid">
+        <div class="edu-list reveal">
+          <div class="edu"><span class="yr">2025</span><span class="body"><b>Microsoft Certified — Power BI Data Analyst Associate (PL-300)</b><span>Microsoft</span></span><span class="tagcert">Cert.</span></div>
+          <div class="edu"><span class="yr">2025</span><span class="body"><b>Master Data Science, IA &amp; Big Data</b><span>Université de La Rochelle</span></span></div>
+          <div class="edu"><span class="yr">2022</span><span class="body"><b>Master Cryptographie &amp; Sécurité de l'information</b><span>UCAD, Dakar</span></span></div>
+          <div class="edu"><span class="yr">2021</span><span class="body"><b>Licence Mathématiques, Cryptographie &amp; Sécurité</b><span>UCAD, Dakar</span></span></div>
         </div>
-        <div class="role-block">
-          <div class="role-title">Data Analyst — Stage <span class="role-tag" style="border-color:#B8D0DE; color:#6B6760;">converti en CDD · 07/2021</span></div>
-          <ul class="bullets">
-            <li>Macros VBA et UserForms pour l'automatisation des processus de calcul et de reporting</li>
+        <div class="courses reveal">
+          <div class="t">Formations en ligne</div>
+          <ul>
+            <li>Python : l'analyse de données</li>
+            <li>Image Classification with TensorFlow</li>
+            <li>Data Science &amp; ses enjeux</li>
+            <li>Web applications avec Blazor</li>
           </ul>
         </div>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
-
-<hr class="section-rule">
-
-<!-- PROJETS -->
-<section class="section" id="projets">
-  <p class="eyebrow">Projets</p>
-  <h2 class="section-h">Réalisations personnelles</h2>
-  <p class="section-sub">Projets data science couvrant IA, NLP, Machine Learning et Big Data.</p>
-
-  <div class="projects-grid">
-    <div class="proj-card">
-      <p class="proj-cat">Computer Vision</p>
-      <h3>Détection de manipulation d'images (ELA)</h3>
-      <p>Algorithmes Error Level Analysis pour identifier les zones retouchées — application à la forensique numérique.</p>
-    </div>
-    <div class="proj-card">
-      <p class="proj-cat">LLM & Process Mining</p>
-      <h3>Fine-tuning de LLM pour l'analyse prédictive</h3>
-      <p>Adaptation de modèles de langage pour des tâches de prédiction dans le contexte du Process Mining industriel.</p>
-    </div>
-    <div class="proj-card">
-      <p class="proj-cat">Deep Learning</p>
-      <h3>Génération de légendes d'images (CNN + RNN)</h3>
-      <p>Pipeline combinant réseau convolutif pour l'extraction de features et réseau récurrent pour la génération de texte.</p>
-    </div>
-    <div class="proj-card">
-      <p class="proj-cat">NLP</p>
-      <h3>Modélisation de sujets avec Gensim (LDA)</h3>
-      <p>Extraction automatique de thèmes latents dans de larges corpus textuels — visualisation et interprétation des topics.</p>
-    </div>
-    <div class="proj-card">
-      <p class="proj-cat">Machine Learning</p>
-      <h3>Prédiction des prix immobiliers</h3>
-      <p>Comparaison Decision Tree, KNN et SVR sur données immobilières — optimisation des hyperparamètres et évaluation croisée.</p>
-    </div>
-    <div class="proj-card">
-      <p class="proj-cat">Big Data & Search</p>
-      <h3>Indexation & recherche avec Solr / ElasticSearch</h3>
-      <p>Indexation de films avec Solr et interrogation via OpenSearch/ElasticSearch — optimisation des requêtes full-text.</p>
-    </div>
-    <div class="proj-card">
-      <p class="proj-cat">NLP</p>
-      <h3>Extraction d'information avec NLTK</h3>
-      <p>Pipeline NLP complet : tokenisation, NER, extraction de relations depuis des textes non structurés.</p>
-    </div>
-    <div class="proj-card">
-      <p class="proj-cat">Machine Learning</p>
-      <h3>Clustering d'images avec Scikit-learn</h3>
-      <p>Segmentation non supervisée par clustering — réduction dimensionnelle, extraction de features et évaluation.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="section-rule">
-
-<!-- CERTIFICATIONS -->
-<section class="section" id="certifications">
-  <p class="eyebrow">Formation & Certifications</p>
-  <h2 class="section-h">Diplômes & certifications</h2>
-
-  <div class="certif-grid">
-    <div class="certif-row" style="background: var(--blue-light); border-bottom: 1px solid var(--border);">
-      <span class="certif-dot" style="background: var(--blue);"></span>
-      <p><strong>Microsoft Certified — Power BI Data Analyst Associate (PL-300)</strong> · 2025</p>
-    </div>
-    <div class="certif-row">
-      <span class="certif-dot"></span>
-      <p><strong>Master Data Science, IA & Big Data</strong> · Université de La Rochelle · 2025</p>
-    </div>
-    <div class="certif-row">
-      <span class="certif-dot"></span>
-      <p><strong>Master Cryptographie & Sécurité</strong> · UCAD, Dakar · 2022</p>
-    </div>
-    <div class="certif-row">
-      <span class="certif-dot"></span>
-      <p><strong>Licence Mathématiques & Cryptographie</strong> · UCAD, Dakar · 2021</p>
-    </div>
-    <div class="certif-row">
-      <span class="certif-dot"></span>
-      <p>Python : L'analyse de données</p>
-    </div>
-    <div class="certif-row">
-      <span class="certif-dot"></span>
-      <p>Basic Image Classification with TensorFlow</p>
-    </div>
-    <div class="certif-row">
-      <span class="certif-dot"></span>
-      <p>S'initier à la Data Science et à ses enjeux</p>
-    </div>
-    <div class="certif-row">
-      <span class="certif-dot"></span>
-      <p>Build web applications with Blazor</p>
-    </div>
-  </div>
-</section>
-
-<hr class="section-rule">
-
-<!-- TARIFS -->
-<section class="section" id="tarifs">
-  <p class="eyebrow">Tarifs</p>
-  <h2 class="section-h">Formules de collaboration</h2>
-  <p class="section-sub">TJM entre 500 et 600 € HT selon la durée et la complexité de la mission.</p>
-
-  <div class="pricing-wrap">
-    <div class="price-card">
-      <p class="price-plan">Ponctuel</p>
-      <p class="price-num">500€</p>
-      <p class="price-per">/ jour HT</p>
-      <ul class="price-feats">
-        <li>Mission 1–5 jours</li>
-        <li>Dashboard ou analyse one-shot</li>
-        <li>Livrable clé en main</li>
-        <li>1 aller-retour de corrections</li>
-      </ul>
-      <a href="#contact" class="btn-line" style="display:block; text-align:center; font-size:13px;">Nous contacter</a>
-    </div>
-    <div class="price-card best">
-      <p class="price-plan">Mission · recommandé</p>
-      <p class="price-num">550€</p>
-      <p class="price-per">/ jour HT</p>
-      <ul class="price-feats">
-        <li>Mission 1 à 3 mois</li>
-        <li>Suivi hebdomadaire inclus</li>
-        <li>Livrables progressifs</li>
-        <li>Corrections illimitées</li>
-        <li>Formation équipe possible</li>
-      </ul>
-      <a href="#contact" class="btn-fill" style="display:block; text-align:center; font-size:13px;">Démarrer une mission</a>
-    </div>
-    <div class="price-card">
-      <p class="price-plan">Long terme</p>
-      <p class="price-num">600€</p>
-      <p class="price-per">/ jour HT</p>
-      <ul class="price-feats">
-        <li>Mission +3 mois</li>
-        <li>Intégration équipe complète</li>
-        <li>Disponibilité prioritaire</li>
-        <li>Reporting & gouvernance data</li>
-      </ul>
-      <a href="#contact" class="btn-line" style="display:block; text-align:center; font-size:13px;">Nous contacter</a>
-    </div>
-  </div>
-</section>
-
-<hr class="section-rule">
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <p class="eyebrow">Contact</p>
-  <h2 class="section-h">Parlons de votre projet</h2>
-  <p class="section-sub">Disponible pour des missions freelance dès maintenant. Réponse sous 24h.</p>
-
-  <div class="contact-grid">
-    <div>
-      <a href="mailto:mourtalladjite@gmail.com" class="contact-line">
-        <span class="cicon">✉</span> mourtalladjite@gmail.com
-      </a>
-      <a href="tel:+33768837300" class="contact-line">
-        <span class="cicon">📱</span> +33 7 68 83 73 00
-      </a>
-      <a href="https://linkedin.com/in/djite" target="_blank" class="contact-line">
-        <span class="cicon">in</span> linkedin.com/in/djite
-      </a>
-      <a href="https://github.com/djite" target="_blank" class="contact-line">
-        <span class="cicon">gh</span> github.com/djite
-      </a>
-      <div class="contact-line">
-        <span class="cicon">📍</span> Paris & périphérie — remote possible
+  <!-- TARIFS -->
+  <section class="section" id="tarifs">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Tarifs</span>
+        <h2>Formules de collaboration</h2>
+        <p>TJM entre 500 et 600 € HT selon la durée et la complexité de la mission.</p>
       </div>
+      <div class="price-grid">
+        <div class="price reveal">
+          <div class="tier">Ponctuel</div>
+          <div class="amt">500€</div><div class="per">/ jour HT</div>
+          <ul><li>Mission 1 à 5 jours</li><li>Dashboard ou analyse one-shot</li><li>Livrable clé en main</li><li>1 aller-retour de corrections</li></ul>
+          <a href="#contact" class="btn btn-navy">Nous contacter</a>
+        </div>
+        <div class="price best reveal">
+          <div class="tier">Mission · recommandé</div>
+          <div class="amt">550€</div><div class="per">/ jour HT</div>
+          <ul><li>Mission 1 à 3 mois</li><li>Suivi hebdomadaire inclus</li><li>Livrables progressifs</li><li>Corrections illimitées</li><li>Formation équipe possible</li></ul>
+          <a href="#contact" class="btn btn-amber">Démarrer une mission</a>
+        </div>
+        <div class="price reveal">
+          <div class="tier">Long terme</div>
+          <div class="amt">600€</div><div class="per">/ jour HT</div>
+          <ul><li>Mission +3 mois</li><li>Intégration équipe complète</li><li>Disponibilité prioritaire</li><li>Reporting &amp; gouvernance data</li></ul>
+          <a href="#contact" class="btn btn-navy">Nous contacter</a>
+        </div>
+      </div>
+      <p class="price-note">Micro-entreprise · TVA non applicable, art. 293 B du CGI</p>
     </div>
-    <div>
-      <label class="form-lbl">Nom & entreprise</label>
-      <input class="form-input" type="text" placeholder="Jean Dupont — Acme Corp">
-      <label class="form-lbl">Email</label>
-      <input class="form-input" type="email" placeholder="jean@entreprise.com">
-      <label class="form-lbl">Votre besoin</label>
-      <textarea class="form-input" placeholder="Dashboard Power BI, automatisation de reporting, analyse de données financières..."></textarea>
-      <button class="btn-fill" style="width:100%; cursor:pointer;">Envoyer</button>
-    </div>
-  </div>
-</section>
+  </section>
 
-<hr class="section-rule">
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <span class="eyebrow" style="color:var(--amber)">Contact</span>
+        <h2>Parlons de votre projet</h2>
+        <p class="lead">Disponible pour une mission freelance dès maintenant. Réponse sous 24&nbsp;h.</p>
+        <div class="clinks">
+          <a class="clink" href="mailto:mourtalladjite@gmail.com">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+            mourtalladjite@gmail.com
+          </a>
+          <a class="clink" href="tel:+33768837300">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg></span>
+            +33 7 68 83 73 00
+          </a>
+          <a class="clink" href="https://linkedin.com/in/djite" target="_blank" rel="noopener">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.6 4.78 6V21H16.6v-5.5c0-1.3-.03-3-1.85-3-1.85 0-2.13 1.44-2.13 2.9V21H10z"/></svg></span>
+            linkedin.com/in/djite
+          </a>
+          <a class="clink" href="https://github.com/djite" target="_blank" rel="noopener">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></span>
+            github.com/djite
+          </a>
+        </div>
+        <div class="cloc">📍 Paris &amp; périphérie — remote possible</div>
+      </div>
+      <form id="contactForm">
+        <label for="cf-name">Nom &amp; entreprise</label>
+        <input id="cf-name" name="name" type="text" placeholder="Jean Dupont — Société" required>
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" placeholder="jean@societe.fr" required>
+        <label for="cf-msg">Votre besoin</label>
+        <textarea id="cf-msg" name="msg" placeholder="Décrivez brièvement votre projet, la durée envisagée et vos outils…" required></textarea>
+        <button type="submit" class="btn btn-amber">Envoyer le message</button>
+      </form>
+    </div>
+  </section>
+</main>
+
 <footer>
-  <p>© 2026 Mourtalla Ndjitte — Data Analyst Freelance</p>
-  <p>Micro-entreprise · TVA non applicable — art. 293B CGI</p>
+  <div class="foot-in">
+    <span>© 2026 Mourtalla Ndjitte — Data Analyst freelance</span>
+    <span><a href="#top">Retour en haut ↑</a></span>
+  </div>
 </footer>
 
+<script>
+  document.documentElement.classList.add('has-js');
+
+  // nav scrolled state
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 24); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // mobile menu
+  var toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('navLinks').addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+  });
+
+  // reveal + bar fill on view
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        en.target.querySelectorAll('.bar i').forEach(function(b){
+          if(b.dataset.w){ b.style.width = b.dataset.w + '%'; }
+        });
+        io.unobserve(en.target);
+      }
+    });
+  }, {threshold:0.14, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // contact form -> mailto (works on static hosting)
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('cf-name').value.trim();
+    var email = document.getElementById('cf-email').value.trim();
+    var msg = document.getElementById('cf-msg').value.trim();
+    var subject = encodeURIComponent('Contact portfolio — ' + (name || 'projet'));
+    var body = encodeURIComponent(msg + '\n\n— ' + name + '\n' + email);
+    window.location.href = 'mailto:mourtalladjite@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
 </body>
 </html>
